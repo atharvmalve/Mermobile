@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f7f2" />
+  <title>MERIT — Turn LinkedIn attention into pipeline</title>
+  <meta name="description" content="MERIT helps founders and GTM teams find the right buyers hiding in LinkedIn engagement. Turn comments, reactions, and competitor activity into a qualified lead list." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Geist', 'Inter', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            paper: '#F8F7F2',
+            ink: '#171814',
+            muted: '#77786F',
+            line: '#E7E5DC',
+            merit: '#F5D547',
+            olive: '#777A4B'
+          },
+          boxShadow: {
+            soft: '0 24px 80px rgba(30, 31, 22, .09)',
+            card: '0 8px 30px rgba(30, 31, 22, .06)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;450;500;550;600;650;700;750;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --paper:#F8F7F2; --ink:#171814; --yellow:#F5D547; --line:#E7E5DC; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--paper); color:var(--ink); font-family:'Geist',Inter,ui-sans-serif,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    ::selection { background:#f5d547; color:#171814; }
+    .grid-bg {
+      background-image: linear-gradient(rgba(23,24,20,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(23,24,20,.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    .eyebrow { letter-spacing:.14em; text-transform:uppercase; font-size:10px; font-weight:700; }
+    .pill { border:1px solid var(--line); border-radius:999px; padding:8px 12px; background:rgba(255,255,255,.7); }
+    .btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:10px; background:var(--yellow); border:1px solid #e5c83b; color:#171814; border-radius:10px; padding:13px 17px; font-size:13px; font-weight:650; transition:transform .22s ease, box-shadow .22s ease, background .22s ease; box-shadow:0 3px 0 rgba(23,24,20,.09); }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(200,170,30,.22); background:#ffdf4c; }
+    .btn-secondary { display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid #deddd4; background:rgba(255,255,255,.72); border-radius:10px; padding:13px 16px; font-size:13px; font-weight:600; transition:all .2s ease; }
+    .btn-secondary:hover { border-color:#b9b7ab; transform:translateY(-1px); }
+    .dashboard { border:1px solid #deddd4; border-radius:16px; background:#fffefa; box-shadow:0 30px 90px rgba(30,31,22,.13), 0 2px 5px rgba(30,31,22,.04); overflow:hidden; transform:perspective(1400px) rotateY(-3deg) rotateX(1deg); }
+    .window-dot { width:7px;height:7px;border-radius:50%;background:#d8d7cd; }
+    .lead-row { display:grid; grid-template-columns:30px minmax(0,1fr) auto; gap:10px; align-items:center; padding:12px 15px; border-bottom:1px solid #f0efe8; transition:background .2s ease; }
+    .lead-row:hover { background:#fff9df; }
+    .avatar { width:29px;height:29px;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:10px;font-weight:750;color:#3c3d2d;background:#e8e6d8; }
+    .score { font-size:10px;font-weight:700;padding:5px 7px;border-radius:6px;background:#edf2df;color:#53602d;white-space:nowrap; }
+    .score.hot { background:#fff1c0;color:#79600b; }
+    .float-tag { animation:float 5s ease-in-out infinite; }
+    .float-tag.delay { animation-delay:-2.2s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in-view { opacity:1; transform:translateY(0); }
+    .feature-card { border:1px solid var(--line); background:rgba(255,255,255,.56); border-radius:16px; padding:24px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .feature-card:hover { transform:translateY(-4px); border-color:#d5c66f; box-shadow:0 16px 38px rgba(30,31,22,.06); }
+    .icon-box { width:38px;height:38px;border:1px solid #e8e4d3;background:#fff9db;border-radius:11px;display:flex;align-items:center;justify-content:center; }
+    .signal-line { height:1px; background:linear-gradient(90deg,transparent,#d8d5c8,transparent); }
+    details summary { cursor:pointer; list-style:none; }
+    details summary::-webkit-details-marker { display:none; }
+    details[open] .faq-plus { transform:rotate(45deg); }
+    .faq-plus { transition:transform .2s ease; }
+    .email-input { min-width:0; flex:1; background:transparent; outline:none; border:0; font-size:13px; padding:12px 4px; }
+    .email-input::placeholder { color:#96968c; }
+    @media(max-width:767px) { .dashboard { transform:none; } .hero-title { letter-spacing:-.055em; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } .reveal { opacity:1;transform:none; } }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+  <header class="relative z-20 border-b border-line/80">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+      <a href="#" class="flex items-center gap-2.5" aria-label="MERIT home">
+        <span class="flex h-8 w-8 items-center justify-center rounded-[9px] bg-ink text-paper">
+          <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 15V5l7 7 7-7v10" stroke="#F5D547" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="text-[17px] font-extrabold tracking-[-.06em]">MERIT<span class="text-[#b2a03e]">.</span></span>
+      </a>
+      <div class="hidden items-center gap-8 text-[12px] font-medium text-[#66675f] md:flex">
+        <a href="#how-it-works" class="transition hover:text-ink">How it works</a>
+        <a href="#for-teams" class="transition hover:text-ink">For GTM teams</a>
+        <a href="#faq" class="transition hover:text-ink">FAQ</a>
+      </div>
+      <a href="#early-access" class="btn-primary !px-4 !py-2.5 text-[12px]">Get early access <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="relative isolate overflow-hidden">
+      <div class="grid-bg absolute inset-0 -z-10"></div>
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-16 md:grid-cols-[.92fr_1.08fr] md:px-8 md:pb-28 md:pt-24">
+        <div class="relative z-10">
+          <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-[#e4dcae] bg-[#fffbea] px-3 py-2 text-[11px] font-semibold text-[#6e5e16]">
+            <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c3a824] opacity-40"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-[#c3a824]"></span></span>
+            Your next customer might already be engaging.
+          </div>
+          <h1 class="hero-title max-w-[650px] text-[clamp(3.25rem,6.3vw,5.65rem)] font-semibold leading-[.98] tracking-[-.07em]">
+            Your next lead<br>is already in the<br><span class="relative inline-block">comments.<svg class="absolute -bottom-1 left-0 w-full" viewBox="0 0 330 13" fill="none" aria-hidden="true"><path d="M3 8.5C79 2 227 2 326 7" stroke="#F5D547" stroke-width="6" stroke-linecap="round"/></svg></span>
+          </h1>
+          <p class="mt-7 max-w-[470px] text-[16px] leading-7 text-[#66675f] md:text-[17px] md:leading-8">MERIT finds the people behind LinkedIn likes, comments, and competitor engagement who actually fit your ideal customer profile. So your content does more than get attention. It builds pipeline.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="#early-access" class="btn-primary">Get 5,000 engagement leads <span aria-hidden="true">↗</span></a>
+            <a href="#how-it-works" class="btn-secondary">See how it works <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-[#77786f]">
+            <span class="flex items-center gap-1.5"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="m3 8 3 3 7-7" stroke="#74784A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Built for founder-led growth</span>
+            <span class="h-1 w-1 rounded-full bg-[#c7c5b9]"></span>
+            <span class="flex items-center gap-1.5"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="m3 8 3 3 7-7" stroke="#74784A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Human-reviewed outreach</span>
+          </div>
+          <div class="mt-10 flex items-center gap-3 border-t border-line pt-5">
+            <div class="flex -space-x-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-paper bg-[#e9d8c6] text-[10px] font-bold">F</div>
+              <div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-paper bg-[#dce4d0] text-[10px] font-bold">G</div>
+              <div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-paper bg-[#e8dfef] text-[10px] font-bold">S</div>
+            </div>
+            <p class="text-[11px] leading-5 text-[#77786f]"><span class="font-semibold text-ink">For creators, founders & GTM teams</span><br>Make the attention you've earned work harder.</p>
+          </div>
+        </div>
+
+        <div class="relative mx-auto w-full max-w-[620px] md:ml-auto">
+          <div class="float-tag absolute -left-3 top-[17%] z-10 hidden rounded-xl border border-line bg-white px-3.5 py-3 shadow-card sm:block">
+            <div class="flex items-center gap-2"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-[#fdf4c9] text-sm">✳</span><div><p class="text-[10px] font-semibold">ICP match found</p><p class="mt-0.5 text-[9px] text-muted">Founder · B2B SaaS</p></div><span class="ml-2 rounded-md bg-[#edf2df] px-1.5 py-1 text-[9px] font-bold text-[#596638]">94%</span></div>
+          </div>
+          <div class="float-tag delay absolute -right-2 bottom-[15%] z-10 hidden rounded-xl border border-line bg-white px-3.5 py-3 shadow-card sm:block">
+            <div class="flex items-center gap-2"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-[#e9eee1] text-sm">↗</span><div><p class="text-[10px] font-semibold">Signal captured</p><p class="mt-0.5 text-[9px] text-muted">Competitor's launch post</p></div></div>
+          </div>
+          <div class="dashboard">
+            <div class="flex items-center justify-between border-b border-[#eeede5] px-4 py-3.5">
+              <div class="flex items-center gap-2"><div class="flex gap-1.5"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span></div><span class="ml-2 text-[10px] font-semibold tracking-[-.02em]">MERIT / Lead signals</span></div>
+              <div class="flex items-center gap-1.5 rounded-md bg-[#f4f4ec] px-2 py-1 text-[9px] font-medium text-[#6f7065]"><span class="h-1.5 w-1.5 rounded-full bg-[#87965a]"></span> Live preview</div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 border-b border-[#eeede5] bg-[#fbfaf5] p-3 sm:p-4">
+              <div class="rounded-lg border border-[#eeede5] bg-white p-3"><p class="text-[9px] text-muted">People found</p><p class="mt-1 text-[22px] font-semibold tracking-[-.06em]">5,000<span class="text-[12px] text-[#9a9a8e]">+</span></p><p class="mt-1 text-[9px] text-[#74784a]">Engagement signals</p></div>
+              <div class="rounded-lg border border-[#eeede5] bg-white p-3"><p class="text-[9px] text-muted">ICP matches</p><p class="mt-1 text-[22px] font-semibold tracking-[-.06em]">128</p><p class="mt-1 text-[9px] text-[#74784a]">Worth a closer look</p></div>
+              <div class="rounded-lg border border-[#eeede5] bg-white p-3"><p class="text-[9px] text-muted">Sources</p><p class="mt-1 text-[22px] font-semibold tracking-[-.06em]">24</p><p class="mt-1 text-[9px] text-[#74784a]">Profiles & posts</p></div>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3">
+              <div><p class="text-[12px] font-semibold">Your potential customers</p><p class="mt-1 text-[9px] text-muted">Ranked by fit, with context for every signal</p></div>
+              <button class="rounded-md border border-[#e8e6dc] px-2.5 py-1.5 text-[9px] font-semibold">Export list ↗</button>
+            </div>
+            <div class="px-3 pb-3">
+              <div class="grid grid-cols-[30px_minmax(0,1fr)_auto] gap-[10px] px-3 pb-2 text-[8px] font-semibold uppercase tracking-[.12em] text-[#a09f94]"><span></span><span>Person / signal</span><span>Fit</span></div>
+              <div class="overflow-hidden rounded-lg border border-[#eeede5]">
+                <div class="lead-row"><div class="avatar">AK</div><div class="min-w-0"><div class="flex flex-wrap items-center gap-1.5"><p class="truncate text-[10px] font-semibold">Aarav Kapoor</p><span class="rounded bg-[#f3f0df] px-1.5 py-0.5 text-[8px] text-[#777044]">Founder</span></div><p class="mt-1 truncate text-[9px] text-muted">Commented on a competitor's GTM post</p></div><span class="score hot">94% fit</span></div>
+                <div class="lead-row"><div class="avatar" style="background:#dfe9e8">SM</div><div class="min-w-0"><div class="flex flex-wrap items-center gap-1.5"><p class="truncate text-[10px] font-semibold">Sarah Mitchell</p><span class="rounded bg-[#f3f0df] px-1.5 py-0.5 text-[8px] text-[#777044]">VP Marketing</span></div><p class="mt-1 truncate text-[9px] text-muted">Engaged with your founder's post</p></div><span class="score">89% fit</span></div>
+                <div class="lead-row"><div class="avatar" style="background:#eee0d7">JR</div><div class="min-w-0"><div class="flex flex-wrap items-center gap-1.5"><p class="truncate text-[10px] font-semibold">Jordan Reed</p><span class="rounded bg-[#f3f0df] px-1.5 py-0.5 text-[8px] text-[#777044]">GTM Lead</span></div><p class="mt-1 truncate text-[9px] text-muted">Discussed pipeline attribution in comments</p></div><span class="score">86% fit</span></div>
+                <div class="lead-row"><div class="avatar" style="background:#e5e0f0">PN</div><div class="min-w-0"><div class="flex flex-wrap items-center gap-1.5"><p class="truncate text-[10px] font-semibold">Priya Nair</p><span class="rounded bg-[#f3f0df] px-1.5 py-0.5 text-[8px] text-[#777044]">Co-founder</span></div><p class="mt-1 truncate text-[9px] text-muted">Reacted to a post about outbound pain</p></div><span class="score">82% fit</span></div>
+              </div>
+              <div class="mt-3 flex items-center justify-between rounded-lg bg-[#fff9df] px-3 py-2.5"><div class="flex items-center gap-2"><span class="flex h-6 w-6 items-center justify-center rounded-md bg-[#f5d547] text-[11px]">✦</span><p class="text-[9px] font-medium">Each lead comes with the signal that surfaced them.</p></div><span class="text-[10px] font-semibold">↗</span></div>
+            </div>
+          </div>
+          <p class="mt-3 text-center text-[9px] text-[#929187]">Illustrative product preview · Example names and metrics</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-line bg-[#f1f0e8]">
+      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-5 md:flex-row md:px-8">
+        <p class="eyebrow text-[#8a897e]">Made for the people who grow through LinkedIn</p>
+        <div class="flex flex-wrap items-center justify-center gap-2 text-[11px] font-medium text-[#5e5f56]">
+          <span class="pill">Founder-led sales</span><span class="pill">B2B creators</span><span class="pill">GTM & demand gen</span><span class="pill">LinkedIn agencies</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <p class="eyebrow text-[#8c7a24]">The attention-to-pipeline gap</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-[-.06em] md:text-5xl">You did the hard part.<br><span class="text-[#85836f]">Don't lose the signal.</span></h2>
+        <p class="mx-auto mt-5 max-w-xl text-[14px] leading-7 text-[#72736a]">Someone who fits your ICP comments on a post. A buyer reacts to your competitor's launch. Someone describes the exact problem you solve. The signal is there. Finding it manually doesn't scale.</p>
+      </div>
+      <div class="mt-14 grid gap-4 md:grid-cols-3">
+        <article class="feature-card reveal">
+          <div class="icon-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v11H9l-5 3v-14Z" stroke="#4e503b" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9h8M8 12.5h5" stroke="#4e503b" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <p class="mt-6 text-[10px] font-bold tracking-[.14em] text-[#99978b]">01 / CAPTURE</p>
+          <h3 class="mt-2 text-xl font-semibold tracking-[-.04em]">Listen beyond your feed.</h3>
+          <p class="mt-3 text-[13px] leading-6 text-[#74746b]">Track engagement around your profile, company page, competitors, and the conversations your buyers care about.</p>
+          <div class="mt-6 flex flex-wrap gap-2"><span class="rounded-md bg-[#f0efe6] px-2 py-1.5 text-[10px] text-[#66675d]">Your posts</span><span class="rounded-md bg-[#f0efe6] px-2 py-1.5 text-[10px] text-[#66675d]">Competitors</span><span class="rounded-md bg-[#f0efe6] px-2 py-1.5 text-[10px] text-[#66675d]">Buyer conversations</span></div>
+        </article>
+        <article class="feature-card reveal" style="transition-delay:100ms">
+          <div class="icon-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.5" stroke="#4e503b" stroke-width="1.6"/><path d="m15.5 15.5 4 4M8 10.5l1.7 1.7 3.5-3.6" stroke="#4e503b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <p class="mt-6 text-[10px] font-bold tracking-[.14em] text-[#99978b]">02 / QUALIFY</p>
+          <h3 class="mt-2 text-xl font-semibold tracking-[-.04em]">Find your people, not just clicks.</h3>
+          <p class="mt-3 text-[13px] leading-6 text-[#74746b]">Define your ideal customer profile. MERIT helps surface the engagers whose roles, companies, and signals fit your market.</p>
+          <div class="mt-6 rounded-lg border border-[#e9e5d5] bg-[#fffbea] p-3"><div class="flex items-center justify-between"><span class="text-[10px] font-semibold">ICP fit</span><span class="text-[10px] font-bold text-[#75631a]">High match</span></div><div class="mt-2 h-1.5 overflow-hidden rounded-full bg-[#e9e3c6]"><div class="h-full w-[88%] rounded-full bg-[#e2c43c]"></div></div><p class="mt-2 text-[9px] text-[#88816a]">Role · company · engagement context</p></div>
+        </article>
+        <article class="feature-card reveal" style="transition-delay:200ms">
+          <div class="icon-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5z" stroke="#4e503b" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9h8M8 12h5M8 15h6" stroke="#4e503b" stroke-width="1.6" stroke-linecap="round"/><path d="m16 16 2 2 4-4" stroke="#4e503b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <p class="mt-6 text-[10px] font-bold tracking-[.14em] text-[#99978b]">03 / ACT</p>
+          <h3 class="mt-2 text-xl font-semibold tracking-[-.04em]">Turn signals into next steps.</h3>
+          <p class="mt-3 text-[13px] leading-6 text-[#74746b]">Review a structured lead list, understand why each person surfaced, export your prospects, and start a more relevant conversation.</p>
+          <div class="mt-6 flex items-center gap-2 rounded-lg border border-[#e9e8df] bg-white p-3"><span class="flex h-7 w-7 items-center justify-center rounded-md bg-[#edf2df] text-[#53602d]">↗</span><div><p class="text-[10px] font-semibold">Ready for your workflow</p><p class="mt-1 text-[9px] text-[#8c8c80]">Review · Export · Reach out</p></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="for-teams" class="overflow-hidden bg-[#1b1c17] text-[#f8f7f2]">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 md:grid-cols-2 md:px-8 md:py-24">
+        <div class="reveal">
+          <p class="eyebrow text-[#e5cc4d]">Your content is a channel. Treat it like one.</p>
+          <h2 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-[-.06em] md:text-5xl">Stop measuring attention.<br><span class="text-[#d8d6c9]">Start working it.</span></h2>
+          <p class="mt-6 max-w-lg text-[14px] leading-7 text-[#b4b4a8]">For founders building in public and GTM teams investing in LinkedIn, every post is an opportunity to learn who's paying attention. MERIT helps you organize that attention into a pipeline your team can actually follow up on.</p>
+          <a href="#early-access" class="btn-primary mt-8">Get early access <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="reveal">
+          <div class="rounded-2xl border border-white/10 bg-white/[.04] p-5 md:p-7">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4"><div><p class="text-[12px] font-semibold">From engagement to opportunity</p><p class="mt-1 text-[10px] text-[#a5a69a]">A more useful way to work your audience</p></div><span class="rounded-md bg-[#f5d547]/15 px-2 py-1 text-[9px] font-semibold text-[#f5d547]">MERIT FLOW</span></div>
+            <div class="mt-5 space-y-3">
+              <div class="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[.035] p-3.5"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-sm">◎</span><div class="flex-1"><p class="text-[11px] font-semibold">LinkedIn engagement</p><p class="mt-1 text-[10px] text-[#a5a69a]">Comments, reactions, competitor posts</p></div><span class="text-[10px] text-[#b8b8ac]">Capture</span></div>
+              <div class="ml-7 h-4 w-px bg-[#f5d547]/50"></div>
+              <div class="flex items-center gap-3 rounded-xl border border-[#f5d547]/30 bg-[#f5d547]/[.07] p-3.5"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f5d547] text-sm text-ink">✳</span><div class="flex-1"><p class="text-[11px] font-semibold">ICP-qualified prospects</p><p class="mt-1 text-[10px] text-[#c4c3b6]">Prioritized with the signal attached</p></div><span class="text-[10px] font-semibold text-[#f5d547]">Qualify</span></div>
+              <div class="ml-7 h-4 w-px bg-[#f5d547]/50"></div>
+              <div class="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[.035] p-3.5"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-sm">↗</span><div class="flex-1"><p class="text-[11px] font-semibold">A list your team can act on</p><p class="mt-1 text-[10px] text-[#a5a69a]">Export, personalize, start a conversation</p></div><span class="text-[10px] text-[#b8b8ac]">Follow up</span></div>
+            </div>
+            <p class="mt-5 text-[9px] leading-5 text-[#898a7e]">Engagement is a signal, not a promise of buying intent. Your team stays in control of every follow-up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-24">
+      <div class="reveal grid gap-10 md:grid-cols-[.75fr_1.25fr] md:items-start">
+        <div><p class="eyebrow text-[#8c7a24]">Why MERIT</p><h2 class="mt-4 text-3xl font-semibold tracking-[-.055em] md:text-4xl">More signal.<br>Less tab-hopping.</h2><p class="mt-4 max-w-sm text-[13px] leading-6 text-[#74746b]">You shouldn't need a spreadsheet, twenty open tabs, and a great memory to follow up with the right people.</p></div>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div class="rounded-xl border border-line bg-white/50 p-5"><p class="text-[12px] font-semibold">Your audience, organized</p><p class="mt-2 text-[12px] leading-6 text-[#74746b]">Bring engagement from the profiles and conversations that matter into one place.</p></div>
+          <div class="rounded-xl border border-line bg-white/50 p-5"><p class="text-[12px] font-semibold">Context attached to every lead</p><p class="mt-2 text-[12px] leading-6 text-[#74746b]">Know what they engaged with, instead of staring at a name and guessing what to say.</p></div>
+          <div class="rounded-xl border border-line bg-white/50 p-5"><p class="text-[12px] font-semibold">Built around your ICP</p><p class="mt-2 text-[12px] leading-6 text-[#74746b]">Prioritize people who resemble your buyers, not everyone who happened to click like.</p></div>
+          <div class="rounded-xl border border-line bg-white/50 p-5"><p class="text-[12px] font-semibold">Your workflow, your call</p><p class="mt-2 text-[12px] leading-6 text-[#74746b]">Export your list and decide how and when to reach out. No auto-sent messages.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="early-access" class="px-5 pb-20 md:px-8 md:pb-28">
+      <div class="reveal relative mx-auto max-w-5xl overflow-hidden rounded-[24px] border border-[#e3d9a3] bg-[#f5d547] px-6 py-12 md:px-14 md:py-16">
+        <div class="absolute -right-16 -top-24 h-72 w-72 rounded-full border border-black/[.08]"></div><div class="absolute -right-5 -top-12 h-52 w-52 rounded-full border border-black/[.08]"></div><div class="absolute -right-[-80px] -bottom-32 h-64 w-64 rounded-full border border-black/[.08]"></div>
+        <div class="relative grid gap-8 md:grid-cols-[1fr_.78fr] md:items-center">
+          <div><p class="eyebrow text-[#6d5b12]">Early access · Founding users</p><h2 class="mt-4 max-w-xl text-4xl font-semibold leading-[1.04] tracking-[-.065em] md:text-5xl">You've earned the attention.<br>Now find the opportunity.</h2><p class="mt-5 max-w-lg text-[13px] leading-6 text-[#514719]">Join the early access list. We're preparing MERIT to help founders and GTM teams turn LinkedIn engagement into a more organized, actionable prospect list.</p><div class="mt-5 flex flex-wrap gap-2 text-[10px] font-medium text-[#514719]"><span class="rounded-full border border-black/15 bg-white/30 px-3 py-1.5">5,000 engagement signals planned</span><span class="rounded-full border border-black/15 bg-white/30 px-3 py-1.5">Founding-user pricing: $29/mo planned</span></div></div>
+          <form id="waitlist-form" class="rounded-2xl border border-black/10 bg-[#fffdf2] p-4 shadow-[0_12px_30px_rgba(40,34,10,.08)] sm:p-5">
+            <label for="email" class="block text-[12px] font-semibold">Get first access to MERIT</label>
+            <p class="mt-1 text-[11px] leading-5 text-[#777365]">We'll email you when your workspace is ready. No spam, no pressure.</p>
+            <div class="mt-4 flex items-center gap-2 rounded-lg border border-[#e3e0d2] bg-white px-3 focus-within:border-[#bba62c] focus-within:ring-2 focus-within:ring-[#f5d547]/30">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#8d8b7c" stroke-width="1.5"/><path d="m4 7 8 6 8-6" stroke="#8d8b7c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <input id="email" class="email-input" type="email" name="email" placeholder="you@company.com" autocomplete="email" required />
+            </div>
+            <button type="submit" class="btn-primary mt-3 w-full">Get on the early access list <span aria-hidden="true">↗</span></button>
+            <p id="form-message" role="status" class="mt-3 min-h-4 text-center text-[10px] text-[#777365]">By joining, you agree to receive product updates from MERIT.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="mx-auto max-w-3xl px-5 pb-20 md:px-8 md:pb-24">
+      <div class="reveal text-center"><p class="eyebrow text-[#8c7a24]">Good questions</p><h2 class="mt-3 text-3xl font-semibold tracking-[-.055em]">Before you join.</h2></div>
+      <div class="reveal mt-8 divide-y divide-line border-y border-line">
+        <details class="py-5"><summary class="flex items-center justify-between gap-4 text-[13px] font-semibold">Who is MERIT for?<span class="faq-plus text-xl font-normal text-[#8b896f]">+</span></summary><p class="mt-3 max-w-2xl pr-8 text-[12px] leading-6 text-[#74746b]">Founders building an audience on LinkedIn, creators with a business audience, and startup GTM or demand-generation teams who want to turn engagement into a more organized prospecting workflow.</p></details>
+        <details class="py-5"><summary class="flex items-center justify-between gap-4 text-[13px] font-semibold">What does MERIT actually find?<span class="faq-plus text-xl font-normal text-[#8b896f]">+</span></summary><p class="mt-3 max-w-2xl pr-8 text-[12px] leading-6 text-[#74746b]">People engaging with selected LinkedIn profiles, company pages, competitor content, and relevant conversations. MERIT is designed to help you prioritize those people against your ideal customer profile and retain the context behind each signal.</p></details>
+        <details class="py-5"><summary class="flex items-center justify-between gap-4 text-[13px] font-semibold">Does engagement mean someone is ready to buy?<span class="faq-plus text-xl font-normal text-[#8b896f]">+</span></summary><p class="mt-3 max-w-2xl pr-8 text-[12px] leading-6 text-[#74746b]">No, and we won't pretend it does. Engagement gives you a useful reason to investigate and start a more relevant conversation. ICP fit and the original context help your team decide whether to follow up.</p></details>
+        <details class="py-5"><summary class="flex items-center justify-between gap-4 text-[13px] font-semibold">Is the product live? What will early access cost?<span class="faq-plus text-xl font-normal text-[#8b896f]">+</span></summary><p class="mt-3 max-w-2xl pr-8 text-[12px] leading-6 text-[#74746b]">MERIT is in preparation for early access. We're planning an initial allowance of up to 5,000 engagement signals and a $29/month founding-user price. Final availability, coverage, and pricing will be confirmed before launch.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-line">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-6 text-[10px] text-[#85857a] md:flex-row md:items-center md:justify-between md:px-8">
+      <a href="#" class="flex items-center gap-2 text-[14px] font-extrabold tracking-[-.06em] text-ink"><span class="flex h-6 w-6 items-center justify-center rounded-md bg-ink text-merit">M</span> MERIT<span class="text-[#b2a03e]">.</span></a>
+      <p>Turn attention into opportunity. Thoughtfully.</p>
+      <p>© <span id="year"></span> MERIT. Independent product. Not affiliated with LinkedIn.</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    // Motion (the animation library from the Framer Motion team) adds subtle entrance motion.
+    try {
+      const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduced) {
+        document.querySelectorAll('.reveal').forEach((el) => {
+          inView(el, () => {
+            animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: .65, easing: [0.22, 1, 0.36, 1] });
+          }, { amount: .15 });
+        });
+        const dashboard = document.querySelector('.dashboard');
+        if (dashboard) {
+          dashboard.addEventListener('pointermove', (e) => {
+            if (window.innerWidth < 900) return;
+            const r = dashboard.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - .5;
+            const y = (e.clientY - r.top) / r.height - .5;
+            dashboard.style.transform = `perspective(1400px) rotateY(${-3 + x * 3}deg) rotateX(${1 - y * 2}deg)`;
+          });
+          dashboard.addEventListener('pointerleave', () => dashboard.style.transform = 'perspective(1400px) rotateY(-3deg) rotateX(1deg)');
+        }
+      } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+      }
+    } catch (e) {
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('in-view'); observer.unobserve(entry.target); }
+      }), { threshold: .12 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Front-end demo only: connect this form to your waitlist backend before launch.
+    document.getElementById('waitlist-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('form-message');
+      if (!email) return;
+      msg.textContent = "You're on the page! Connect this form to your waitlist backend to save " + email + ".";
+      msg.className = "mt-3 min-h-4 text-center text-[10px] font-semibold text-[#5d642f]";
+      document.getElementById('email').value = '';
+    });
+  </script>
+</body>
+</html>
